@@ -10,14 +10,13 @@
 
 @protocol SlideButtonDelegate <NSObject>
 
-- (void)slideupButton;
+- (void)slideupButtonWithTag:(NSInteger)tag;
 
-- (void)slideMiddleButton;
+- (void)slideMiddleButtonWithTag:(NSInteger)tag;
 
-- (void)slideDownButton;
+- (void)slideDownButtonWithTag:(NSInteger)tag;
 
 @end
-
 
 
 @interface SlideButton : UIView

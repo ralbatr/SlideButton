@@ -70,19 +70,19 @@
             if ( _button.frame.origin.y < self.frame.size.height/3 ) {
                 _button.frame = CGRectMake(0, 0, width, height/3);
                 [_button setTitle:@"上" forState:UIControlStateNormal];
-                [self.delegate slideupButton];
+                [self.delegate slideupButtonWithTag:self.tag];
             }
             // _button 的位置在 中间的时候
             if ( _button.frame.origin.y > self.frame.size.height/3 && _button.frame.origin.y < self.frame.size.height*2/3) {
                 _button.frame = CGRectMake(0, height/3, width, height/3);
                 [_button setTitle:@"中" forState:UIControlStateNormal];
-                [self.delegate slideMiddleButton];
+                [self.delegate slideMiddleButtonWithTag:self.tag];
             }
             // _button 的位置在 最下方的时候
             if (_button.frame.origin.y > self.frame.size.height*2/3) {
                 _button.frame = CGRectMake(0, height/3*2, width, height/3);
                 [_button setTitle:@"下" forState:UIControlStateNormal];
-                [self.delegate slideDownButton];
+                [self.delegate slideDownButtonWithTag:self.tag];
             }
         }];
         [pan setTranslation:CGPointZero inView:self];

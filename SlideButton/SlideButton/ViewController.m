@@ -30,15 +30,21 @@
     [self.view addSubview:button1];
 }
 
-- (void)slideupButton {
-    NSLog(@"slideUpButton");
+- (void)slideupButtonWithTag:(NSInteger)tag {
+    
+    if (tag == 101) {
+        NSLog(@"101slideUpButton");
+    } else {
+        NSLog(@"102slideUpButton");
+    }
+    
 }
 
-- (void)slideMiddleButton {
+- (void)slideMiddleButtonWithTag:(NSInteger)tag {
     NSLog(@"slideMiddleButton");
 }
 
-- (void)slideDownButton {
+- (void)slideDownButtonWithTag:(NSInteger)tag {
     NSLog(@"slideDownButton");
 }
 
