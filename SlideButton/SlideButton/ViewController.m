@@ -21,7 +21,13 @@
     // Do any additional setup after loading the view, typically from a nib.
     SlideButton *button = [[SlideButton alloc] initWithFrame:CGRectMake(20, 40, 40, 120)];
     button.delegate = self;
+    button.tag = 101;
     [self.view addSubview:button];
+    
+    SlideButton *button1 = [[SlideButton alloc] initWithFrame:CGRectMake(90, 40, 40, 120)];
+    button1.delegate = self;
+    button1.tag = 201;
+    [self.view addSubview:button1];
 }
 
 - (void)slideupButton {
