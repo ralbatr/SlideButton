@@ -30,7 +30,7 @@
 - (UIButton *)creatButton {
     if (nil == _button) {
         _button = [[UIButton alloc] init];
-        _button.frame = CGRectMake(0, self.frame.size.height/3, 30, 30);
+        _button.frame = CGRectMake(0, self.frame.size.height/3, self.frame.size.width, self.frame.size.height/3);
         _button.backgroundColor = [UIColor redColor];
         [self addSubview:_button];
     }
@@ -48,38 +48,52 @@
 
 - (void)upPan:(UIPanGestureRecognizer *)pan
 {
-    NSLog(@"UIPanGestureRecognizer");
-//    CGPoint point = [pan translationInView:self];
-//    CGPoint rightTmpPoint = self.center;
-//    rightTmpPoint.x += point.x;
-//
-//    if(pan.state == UIGestureRecognizerStateBegan) {
-//
-//    } else if (pan.state == UIGestureRecognizerStateChanged) {
-//        if ( ScreenWidth - rightTmpPoint.x < _rightView.frame.size.width/2) {
-//            _rightView.center = rightTmpPoint;
-//            // 把另一个menuview隐藏
-//            _leftView.frame = leftFrame;
-//        }
-//        [pan setTranslation:CGPointZero inView:_leftView];
-//    } else if (pan.state == UIGestureRecognizerStateEnded) {
-//        [UIView animateWithDuration:0.9 animations:^{
-//            if (_rightView.center.x >= _leftView.frame.size.width/2) {
-//                _rightView.frame = IS_Pad?kRightOutFrameIpad:kRightOutFrame;
-//                _isNoTapAction = YES;
-//            } else {
-//                _rightView.frame = IS_Pad?kRightInFrameIpad:kRightInFrame;
-//                _isNoTapAction = NO;
-//            }
-//            
-//        }];
-//        [pan setTranslation:CGPointZero inView:_leftView];
-//    }
+//    NSLog(@"UIPanGestureRecognizer");
+    CGPoint point = [pan translationInView:self];
+    CGPoint rightTmpPoint = _button.center;
+    rightTmpPoint.y += point.y;
+    
+    CGFloat width = _button.frame.size.width;
+    CGFloat height = self.frame.size.height;
+
+//    NSLog(@"_button.frame.origin.y %f  self.frame.size.height %f",_button.frame.origin.y ,self.frame.size.height);
+    if(pan.state == UIGestureRecognizerStateBegan) {
+
+    } else if (pan.state == UIGestureRecognizerStateChanged) {
+        if ( _button.frame.origin.y < self.frame.size.height && _button.frame.origin.y > -1 ) {
+            _button.center = rightTmpPoint;
+        }
+        [pan setTranslation:CGPointZero inView:self];
+    } else if (pan.state == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:0.2 animations:^{
+            // _button 的位置在 最上边的时候
+            if ( _button.frame.origin.y < self.frame.size.height/3 ) {
+                _button.frame = CGRectMake(0, 0, width, height/3);
+                [_button setTitle:@"上" forState:UIControlStateNormal];
+                [self.delegate slideupButton];
+            }
+            // _button 的位置在 中间的时候
+            if ( _button.frame.origin.y > self.frame.size.height/3 && _button.frame.origin.y < self.frame.size.height*2/3) {
+                _button.frame = CGRectMake(0, height/3, width, height/3);
+                [_button setTitle:@"中" forState:UIControlStateNormal];
+                [self.delegate slideMiddleButton];
+            }
+            // _button 的位置在 最下方的时候
+            if (_button.frame.origin.y > self.frame.size.height*2/3) {
+                _button.frame = CGRectMake(0, height/3*2, width, height/3);
+                [_button setTitle:@"下" forState:UIControlStateNormal];
+                [self.delegate slideDownButton];
+            }
+        }];
+        [pan setTranslation:CGPointZero inView:self];
+    }
 }
 
 - (void)setUpImageName:(NSString *)upImageName MiddleImageName:(NSString *)middleImageName DownImageName:(NSString *)downImageName
 {
-    
+    _upImageName = upImageName;
+    _middleImageName = middleImageName;
+    _downImageName = downImageName;
 }
 
 @end

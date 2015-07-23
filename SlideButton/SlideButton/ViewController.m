@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "SlideButton.h"
 
-@interface ViewController ()
+@interface ViewController ()<SlideButtonDelegate>
 
 @end
 
@@ -19,8 +19,21 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor brownColor];
     // Do any additional setup after loading the view, typically from a nib.
-    SlideButton *button = [[SlideButton alloc] initWithFrame:CGRectMake(20, 40, 30, 90)];
+    SlideButton *button = [[SlideButton alloc] initWithFrame:CGRectMake(20, 40, 40, 120)];
+    button.delegate = self;
     [self.view addSubview:button];
+}
+
+- (void)slideupButton {
+    NSLog(@"slideUpButton");
+}
+
+- (void)slideMiddleButton {
+    NSLog(@"slideMiddleButton");
+}
+
+- (void)slideDownButton {
+    NSLog(@"slideDownButton");
 }
 
 - (void)didReceiveMemoryWarning {
